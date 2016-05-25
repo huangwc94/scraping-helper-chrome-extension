@@ -1,0 +1,55 @@
+.sh-predict {
+	border:2px solid #3f3f3f;
+}
+.sh-hover {
+	border:2px solid #ff0000;
+	
+	
+	
+}
+.sh-select {
+	border:2px solid #000;
+}
+div.sh-move-to-right{
+	right:0px;
+}
+div.sh-move-to-left{
+	left:0px;
+}
+#sh-clear{
+	font-family: "Segoe UI", "黑体","Lucida Grande", Tahoma, sans-serif;
+	position:fixed;
+	
+	top:0px;
+	z-index: 999;
+	padding:20px;
+	font-size: 24px;
+	color:white;
+	background-color: rgba(0,0,0,0.5);
+	line-height: 30px;
+}
+
+
+.sh-tooltip::before {
+    content: attr(data-tip) ;   
+     
+    font-size: 40px;
+    position:absolute;
+    z-index: 999;
+    white-space:nowrap;
+    bottom:9999px;
+    left: 50%;
+    background:#000;
+    color:#e0e0e0;
+    padding:10px 10px;
+    line-height: 34px;
+    height: 40px;
+     
+    opacity: 0;  
+    transition:opacity 0.4s ease-out; 
+    }
+     
+.sh-tooltip:hover::before {
+    opacity: 1;
+    bottom:-35px;
+    }

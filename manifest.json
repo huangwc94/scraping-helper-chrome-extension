@@ -1,0 +1,26 @@
+{
+  "manifest_version": 2,
+
+  "name": "数据抓取分析工具",
+  "description": "自动生成最简HTML选择命令，用于爬虫网页内容分析",
+  "version": "0.1",
+  "icons": { "128": "icon.png" },
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_popup": "popup.html"
+  },
+
+  "permissions": [
+    "activeTab",
+    "https://*/*"
+  ],
+  "web_accessible_resources":["icon.png"],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "css": ["css/sh-style.css"],
+      "js": ["js/jquery.js", "js/sh-main.js"]
+
+    }
+  ]
+}
