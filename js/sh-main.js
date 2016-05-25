@@ -51,7 +51,7 @@ $(function(){
 		
 	});
 
-	$("body").append("<div id='sh-clear' class='sh-move-to-right'>点我复位<div class='sh-suggestion '></div></div>");
+	$("body").append("<div id='sh-clear' class='sh-move-to-right'>重新选择<div class='sh-suggestion '></div></div>");
 	$("#sh-clear").click(function(e){
 		e.stopPropagation();
 		removeAllElementClass("sh-select");

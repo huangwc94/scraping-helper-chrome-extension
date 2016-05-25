@@ -2,13 +2,20 @@
 	border:2px solid #3f3f3f;
 }
 .sh-hover {
-	border:2px solid #ff0000;
-	
-	
-	
+
+	background-color: rgba(0,204,255,0.5) !important;
+	color:#fff !important;
+	text-shoadow:none !important;
+
+	/*border:2px solid #ff0000;*/
 }
 .sh-select {
-	border:2px solid #000;
+
+	background-color: rgba(0,153,51,0.8) !important;
+	color:#fff !important;
+	text-shoadow:none !important;
+
+	/*border:2px solid #000;*/
 }
 div.sh-move-to-right{
 	right:0px;
