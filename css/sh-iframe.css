@@ -1,0 +1,19 @@
+#sh-panel{
+	height:100%;
+	border-radius: 0px;
+}
+#sh-modal {
+	overflow:auto;
+	font-family: "Segoe UI", "黑体","Lucida Grande", Tahoma, sans-serif !important;
+	display:none;
+	font-size:15px !important; 
+	color: #fff;
+	background-color:#4abdac ;
+	z-index: 999999999;
+	position:fixed;
+	padding:20px;
+	top:35%;
+	left:35%;
+	width:30%;
+	height:40%;
+}

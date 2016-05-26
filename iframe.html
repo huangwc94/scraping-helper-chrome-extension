@@ -1,0 +1,45 @@
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <link href="css/bootstrap.min.css" rel="stylesheet"></link>
+    <link href="css/sh-iframe.css" rel="stylesheet"></link>
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  </head>
+  <body>
+   <div id='sh-panel' class='panel panel-primary'>
+      <div class="panel-heading">内容选择器控制面板<div style="float:right" id="sh-action-close"><span  class="glyphicon glyphicon-remove" aria-hidden="true"></span></div></div>
+      <div class="panel-body">
+      <ul class="btn-group" role="group" aria-label="...">
+        <button type="button" class="btn btn-default" id='sh-action-reset'>重置</button>
+      </ul>
+      <ul class="btn-group" role="group" aria-label="...">
+        <button type="button" class="btn btn-default" id='sh-action-copy-selector'>拷贝选择器</button>
+        <button type="button" class="btn btn-default" id='sh-action-copy-content'>拷贝内容</button>
+      </ul>
+      <p>
+        示例：
+        <span style=" background-color: rgba(0,204,255,0.5) !important; color:#fff !important;">准备选择</span> 
+        <span style=" background-color: rgba(0,153,51,0.8) !important; color:#fff !important;">已经选择</span> 
+        <span style=" border:2px solid #3f3f3f;">预测选择</span>
+      </p>
+      </div>
+       <ul class="list-group">
+        <li class="list-group-item" id='sh-suggestion-find'>是否找到：12</li>
+        <li class="list-group-item" id='sh-suggestion-count'>选择数量：12</li>
+        <li class="list-group-item" id='sh-suggestion-path'>元素路径：<kbd>cd</kbd></li>
+        <li class="list-group-item" id='sh-suggestion-suggestion'>建议选择：<code>.article</code></li>
+        <li class="list-group-item" id='sh-suggestion-recommend'>备用选择：<code>.article h1</code> </li>
+      </ul>
+
+    </div>
+    <div id='sh-modal'></div>
+    <script type="text/javascript"
+      $(function(){
+        console.log("Hello From iframe!");
+      });
+    ></script>
+  </body>
+</html>

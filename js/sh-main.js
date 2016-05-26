@@ -9,6 +9,7 @@ $(function(){
 	chrome.runtime.onMessage.addListener(
 	    function(request, sender, sendResponse) {
 	        start();
+	        //addPanel();
 	});
 
 	function start(){
@@ -39,7 +40,7 @@ $(function(){
 					$(this).addClass("sh-hover");
 				}
 			});
-			updateSuggestion();
+			update();
 			
 		});
 		$("*").click(function(e){
@@ -58,14 +59,15 @@ $(function(){
 			}
 			$(".sh-hover").addClass("sh-select").removeClass("sh-hover");
 			
-			updateSuggestion();
+			update();
 			
 		});
 		addPanel();
 	}
 	var isShowingModal = false;
 	function addPanel(){
-		$("body").append("<div id='sh-panel' class='sh-move-to-right'><h4>内容选择器控制面板</h4><hr><ul><li id='sh-action-reset'>重置</li><li id='sh-action-close'>关闭</li><li id='sh-action-copy-selector'>拷贝选择器</li><li id='sh-action-copy-content'>拷贝内容</li></ul><div id='sh-suggestion'></div></div><div id='sh-modal'></div>");
+		$("body").append("<iframe id='sh-iframe' src='"+chrome.extension.getURL("iframe.html")+"' scrolling='no' \
+        seamless='seamless'>");
 
 		$("#sh-action-reset").click(function(e){
 			e.stopPropagation();
@@ -117,19 +119,20 @@ $(function(){
 	}
 	
 
-	function updateSuggestion(){
-		apporach1_BreadthFirstSearch();
+	function update(){
+		var result = apporach1_BreadthFirstSearch();
+		updatePanel(result);
 	}
 	var current_best_solution = "";
 	var current_best_different = 99999999999;
 	function apporach1_BreadthFirstSearch(){
 		var currentUseingClassName = state === 0 ? "sh-hover" : "sh-select";
-		console.log("============================================================");
+		//console.log("============================================================");
 		var currentSelected = $("."+currentUseingClassName);
 
 		var path;
 		var count = currentSelected.length;
-		var suggestion = "";
+		var recommend,suggestion;
 		var findSolution = false;
 
 
@@ -138,10 +141,10 @@ $(function(){
 
 			findSolution = true;
 			var currentNode = $(currentSelected[0]);
-			suggestion = "";
-			while(!isCorrectSelection(currentSelected,suggestion) && currentNode.prop("tagName") !== "BODY" ){
+			recommend = "";
+			while(!isCorrectSelection(currentSelected,recommend) && currentNode.prop("tagName") !== "BODY" ){
 				findSolution = false;
-				console.log(currentNode);
+				//console.log(currentNode);
 				var classList = currentNode.attr('class')===undefined ? [] :currentNode.attr('class').split(/\s+/);
 
 				// loop though all possible class attritube to see if we are able to succfully select 
@@ -152,10 +155,10 @@ $(function(){
 						return;
 					}
 					
-					var trival_solution = currentNode.prop("tagName").toLowerCase()+"."+item +" "+  suggestion;
+					var trival_solution = currentNode.prop("tagName").toLowerCase()+"."+item +" "+  recommend;
 					if(isCorrectSelection(currentSelected,trival_solution)){
 						findSolution = true;
-						suggestion = trival_solution;
+						recommend = trival_solution;
 						console.log("Solution Found!");
 						return false;
 					}
@@ -163,29 +166,44 @@ $(function(){
 				if(findSolution){
 					break;
 				}
-				console.log("go to upper level tree for answer");
-				suggestion = currentNode.prop("tagName").toLowerCase() + " "+suggestion;
+				//console.log("go to upper level tree for answer");
+				recommend = currentNode.prop("tagName").toLowerCase() + " "+recommend;
 				currentNode = currentNode.parent();
 			}
 		}
 		
 		if(!findSolution){
-			suggestion = "找不到合适的选择器！";
+			recommend = "";
 			if(current_best_solution!= ""){
-				suggestion += "<br>最接近选择为:"+current_best_solution;
+				suggestion = current_best_solution;
+			}else{
+				suggestion = "";
 			}
 
+		}else{
+			suggestion = "";
 		}
-		$("#sh-suggestion").html("元素路径："+path.toLowerCase()+"<br>选择数量："+count+"<br>选择器：<span id='sh-suggestion-code'>"+suggestion+"</span>");
-		return findSolution;
-	}
 
+		//$(document).find("#sh-suggestion").html("元素路径："+path.toLowerCase()+"<br>选择数量："+count+"<br>选择器：<span id='sh-suggestion-code'>"+suggestion+"</span>");
+
+		return {path:path.toLowerCase(),count:count,recommend:recommend,suggestion:suggestion,findSolution:findSolution};
+	}
+	function updatePanel(data){
+
+		var isFound = data.findSolution? "<span class=''>是</span>" : "<span class=''>否</span>";
+		console.log(data);
+		$("#sh-suggestion-find").html("是否找到："+isFound);
+		$("#sh-suggestion-count").html("选择数量："+data.count);
+		$("#sh-suggestion-path").html("元素路径：<kbd>"+data.path+"</kbd>");
+		$("#sh-suggestion-recommend").html("建议选择：<code>"+data.recommend+"</code>");
+		$("#sh-suggestion-suggestion").html("备用选择：<code>"+data.suggestion+"</code>");
+	}
 	function isCorrectSelection(currentSelected,selector){
 		var selectorResult = $(selector);
-		console.log("---Testing:"+selector+'---');
-		console.log("CurrentSelected:" + currentSelected.length);
-		console.log("SelectorSelected: "+ selectorResult.length);
-		console.log("--------------------------");
+		// console.log("---Testing:"+selector+'---');
+		// console.log("CurrentSelected:" + currentSelected.length);
+		// console.log("SelectorSelected: "+ selectorResult.length);
+		// console.log("--------------------------");
 		removeAllElementClass("sh-predict");
 
 		if($(".sh-hover").length == 0){
