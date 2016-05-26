@@ -24,38 +24,67 @@ div.sh-move-to-left{
 	left:0px;
 }
 #sh-panel{
-	clear:both;
+	overflow:auto;
+	margin:0 !important;
+	padding:10px !important;
 	font-family: "Segoe UI", "黑体","Lucida Grande", Tahoma, sans-serif !important;
 	position:fixed !important;
 	width:300px !important;
-	height:50% !important;
+	height:400px !important;
 	top:0px !important;
-	z-index: 999 !important;
+	z-index: 999000000 !important;
 	padding:20px !important;
 	font-size: 14px !important;
-	color:white !important;
-	background-color: rgba(0,0,0,0.5) !important;
+	color:#fff !important;
+	font-weight: 300 !important;
+	background-color: #4abdac !important;
 	line-height: 30px !important;
 }
 #sh-panel ul li{
 	display:inline !important;
 	margin-right: 10px !important;
-}
-#sh-panel ul li button{
+	margin-bottom: 10px !important;
+	font-family: "Segoe UI", "黑体","Lucida Grande", Tahoma, sans-serif !important;
+	background-color: #fc4a1a;
 	color:#fff !important;
-	background-color: #737373;
 	border:none !important;
 	padding:5px;
-	margin: 5px;
+	width:90px;
+	margin: 0px;
+	cursor:pointer;
 }
-#sh-panel ul li button:hover{
-	background-color: #333333;
+#sh-panel ul li:hover{
+	background-color: #f7b733;
+
 }
 #sh-panel ul{
+	text-align: center;
+	margin:0 !important;
+	padding:0 !important;
 	display:block !important;
 }
 #sh-panel h4{
 	color:#fff !important;
 	font-size:15px !important; 
 	text-align: center!important;
+	margin:0 !important;
+	padding:0 !important;
+}
+#sh-suggestion {
+	text-align: left;
+}
+#sh-modal {
+	overflow:auto;
+	font-family: "Segoe UI", "黑体","Lucida Grande", Tahoma, sans-serif !important;
+	display:none;
+	font-size:15px !important; 
+	color: #fff;
+	background-color:#4abdac ;
+	z-index: 999999999;
+	position:fixed;
+	padding:20px;
+	top:35%;
+	left:35%;
+	width:30%;
+	height:40%;
 }

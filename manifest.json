@@ -12,8 +12,11 @@
 
   "permissions": [
     "activeTab",
+    "tabs",
+    "commands",
     "https://*/*"
   ],
+
   "web_accessible_resources":["icon.png"],
   "content_scripts": [
     {
@@ -22,5 +25,14 @@
       "js": ["js/jquery.js", "js/sh-main.js"]
 
     }
-  ]
+  ],
+  "commands": {
+          "toggle-feature-foo": {
+            "suggested_key": {
+              "default": "Ctrl+Shift+Y",
+              "mac": "Command+Shift+Y"
+            },
+            "description": "Toggle feature foo"
+          }
+  }
 }
