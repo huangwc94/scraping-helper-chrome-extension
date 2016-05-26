@@ -5,12 +5,30 @@ $(function(){
 	// chrome.commands.onCommand.addListener(function(command) {
  //        console.log('Command:', command);
  //      });
-	
-	chrome.runtime.onMessage.addListener(
+	console.log("sh-main.js run");
+	if($("#sh-panel").length==1){
+		console.log("iframe avtivited!");
+		chrome.runtime.onMessage.addListener(
+			function(request, sender, sendResponse) {
+				console.log("message received!");
+		    	if(request.update){
+		    		updatePanel(request.data);
+		    	}
+		        
+		        //addPanel();
+		});
+	}else{
+		chrome.runtime.onMessage.addListener(
 	    function(request, sender, sendResponse) {
-	        start();
+	        if(request.start){
+	        	start();
+	        }
+	        
 	        //addPanel();
-	});
+		});
+	}
+
+
 
 	function start(){
 		if(started){
@@ -121,7 +139,9 @@ $(function(){
 
 	function update(){
 		var result = apporach1_BreadthFirstSearch();
-		updatePanel(result);
+		chrome.runtime.sendMessage({data:result,update:true},function(e){
+			console.log(e);
+		});
 	}
 	var current_best_solution = "";
 	var current_best_different = 99999999999;

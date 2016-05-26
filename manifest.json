@@ -15,6 +15,7 @@
     "tabs",
     "commands",
     "https://*/*"
+
   ],
 
   "web_accessible_resources":["icon.png","iframe.html"],
@@ -22,7 +23,8 @@
     {
       "matches": ["<all_urls>"],
       "css": ["css/sh-style.css"],
-      "js": ["js/jquery.js", "js/sh-main.js"]
+      "all_frames":true,
+      "js": ["js/jquery-1.12.4.min.js", "js/sh-main.js"]
 
     }
   ],
