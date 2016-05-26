@@ -9,12 +9,16 @@
     "default_icon": "icon.png",
     "default_popup": "popup.html"
   },
+  "background":{
 
+    },
   "permissions": [
     "activeTab",
     "tabs",
     "commands",
-    "https://*/*"
+    "https://*/*",
+    "webNavigation"
+
 
   ],
 
@@ -23,9 +27,15 @@
     {
       "matches": ["<all_urls>"],
       "css": ["css/sh-style.css"],
-      "all_frames":true,
+      
       "js": ["js/jquery-1.12.4.min.js", "js/sh-main.js"]
 
+    },
+    {
+      "matches": ["<all_urls>"],
+      "all_frames":true,
+      "js": ["js/sh-iframe.js"],
+      "run_at": "document_idle"
     }
   ],
   "commands": {

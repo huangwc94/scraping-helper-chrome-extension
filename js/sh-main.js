@@ -5,6 +5,7 @@ $(function(){
 	// chrome.commands.onCommand.addListener(function(command) {
  //        console.log('Command:', command);
  //      });
+    
 	console.log("sh-main.js run");
 	if($("#sh-panel").length==1){
 		console.log("iframe avtivited!");
@@ -19,9 +20,14 @@ $(function(){
 		});
 	}else{
 		chrome.runtime.onMessage.addListener(
-	    function(request, sender, sendResponse) {
+	    function(request, sender, response) {
 	        if(request.start){
+	        	$("body").append("<iframe id='sh-iframe' src='"+chrome.extension.getURL("iframe.html")+"' scrolling='no' \
+        seamless='seamless'>",function(){
+		        	response({finishInit:true});
+		        });
 	        	start();
+	        	
 	        }
 	        
 	        //addPanel();
@@ -81,11 +87,11 @@ $(function(){
 			
 		});
 		addPanel();
+		
 	}
 	var isShowingModal = false;
 	function addPanel(){
-		$("body").append("<iframe id='sh-iframe' src='"+chrome.extension.getURL("iframe.html")+"' scrolling='no' \
-        seamless='seamless'>");
+		
 
 		$("#sh-action-reset").click(function(e){
 			e.stopPropagation();
@@ -140,7 +146,7 @@ $(function(){
 	function update(){
 		var result = apporach1_BreadthFirstSearch();
 		chrome.runtime.sendMessage({data:result,update:true},function(e){
-			console.log(e);
+			
 		});
 	}
 	var current_best_solution = "";
@@ -150,7 +156,7 @@ $(function(){
 		//console.log("============================================================");
 		var currentSelected = $("."+currentUseingClassName);
 
-		var path;
+		var path = "";
 		var count = currentSelected.length;
 		var recommend,suggestion;
 		var findSolution = false;
