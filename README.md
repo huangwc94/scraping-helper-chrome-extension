@@ -4,3 +4,7 @@
 # Scraping Helper (Chrome extension)
 ### Scraping Helper will help you to find out the best html/css selector for certain elements
 
+![Zhihu](https://github.com/huangwc94/scraping-helper-chrome-extension/blob/master/screenshot/zhihu.jpg)  
+![Tieba](https://github.com/huangwc94/scraping-helper-chrome-extension/blob/master/screenshot/tieba.jpg)  
+![Wiki](https://github.com/huangwc94/scraping-helper-chrome-extension/blob/master/screenshot/wiki.jpg)  
+
