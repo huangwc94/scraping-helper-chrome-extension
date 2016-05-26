@@ -7,31 +7,38 @@ $(function(){
  //      });
     
 	console.log("sh-main.js run");
-	if($("#sh-panel").length==1){
-		console.log("iframe avtivited!");
-		chrome.runtime.onMessage.addListener(
-			function(request, sender, sendResponse) {
-				console.log("message received!");
-		    	if(request.update){
-		    		updatePanel(request.data);
-		    	}
-		        
-		        //addPanel();
-		});
-	}else{
-		chrome.runtime.onMessage.addListener(
-	    function(request, sender, response) {
-	        if(request.start){
-	        	$("body").append("<iframe id='sh-iframe' src='"+chrome.extension.getURL("iframe.html")+"' scrolling='no' \
-        seamless='seamless'>",function(){
-		        	response({finishInit:true});
-		        });
-	        	start();
-	        	
-	        }
-	        
-	        //addPanel();
-		});
+	
+	
+	chrome.runtime.onMessage.addListener(
+    function(request, sender, response) {
+        if(request.start){
+        	$("body").append("<iframe id='sh-iframe' class='sh-normal-size' src='"+chrome.extension.getURL("iframe.html")+"' scrolling='no' \
+    seamless='seamless'>");
+        	response({finishInit:true});
+        	start();
+        	
+        }
+       
+        //addPanel();
+	});
+	
+	window.addEventListener('message', messageHandler);
+	function messageHandler(e){
+		if(e.data.type=="close"){
+			window.location.reload();
+		}else if(e.data.type == "reset"){
+			removeAllElementClass("sh-select");
+			removeAllElementClass("sh-hover");
+			removeAllElementClass("sh-predict");
+			
+			state = 0;
+		}else if(e.data.type=="expand"){
+			$("#sh-iframe").css("width","90%");
+			$("#sh-iframe").css("height","90%");
+		}else if(e.data.type=="collpse"){
+			$("#sh-iframe").css("width","270px");
+			$("#sh-iframe").css("height","440px");
+		}
 	}
 
 
@@ -90,64 +97,29 @@ $(function(){
 		
 	}
 	var isShowingModal = false;
-	function addPanel(){
-		
-
-		$("#sh-action-reset").click(function(e){
-			e.stopPropagation();
-			removeAllElementClass("sh-select");
-			removeAllElementClass("sh-hover");
-			removeAllElementClass("sh-predict");
-			$("#sh-modal").hide();
-			state = 0;
-		});
-		$("#sh-action-close").click(function(e){
-			window.location.reload();
-		});
-		
-		$("#sh-action-copy-selector").click(function(e){
-			e.stopPropagation();
-			if(state ==0){
-				return;
-			}
-			if(isShowingModal){
-				$("#sh-modal").hide();
-				$("#sh-action-copy-selector").text("拷贝选择器");
-			}else{
-				$("#sh-modal").html($("#sh-suggestion-code").text()).show();
-				$("#sh-action-copy-selector").text("关闭");
-			}
-			isShowingModal = !isShowingModal;
-		});
-
-		$("#sh-action-copy-content").click(function(e){
-			e.stopPropagation();
-			if(state ==0){
-				return;
-			}
-			var data = "";
-			$(".sh-select").each(function(){
-				data += "<p>"+$(this).text() + "</p><br>";
-			});
-			
-			if(isShowingModal){
-				$("#sh-modal").hide();
-				$("#sh-action-copy-content").text("拷贝内容");
-			}else{
-				$("#sh-action-copy-content").text("关闭");
-				$("#sh-modal").html(data).show();
-			}
-			isShowingModal = !isShowingModal;
-		});
-		
-	}
 	
 
 	function update(){
 		var result = apporach1_BreadthFirstSearch();
-		chrome.runtime.sendMessage({data:result,update:true},function(e){
+		//console.log($("#sh-iframe")[0].contentWindow);
+		var className;
+		if(state == 0){
+			className = 'sh-hover';
+		}else{
+			className = "sh-select";
+		}
+		var data = "";
+		$("."+className).each(function(){
+			data += "<p>"+$(this).text() + "</p><br>";
+			});
+		
+		result.modal = data;
+
+
+		$("#sh-iframe")[0].contentWindow.postMessage({data:result,type:"update"},"*");
+		// chrome.runtime.sendMessage({data:result,update:true},function(e){
 			
-		});
+		// });
 	}
 	var current_best_solution = "";
 	var current_best_different = 99999999999;
@@ -214,16 +186,7 @@ $(function(){
 
 		return {path:path.toLowerCase(),count:count,recommend:recommend,suggestion:suggestion,findSolution:findSolution};
 	}
-	function updatePanel(data){
 
-		var isFound = data.findSolution? "<span class=''>是</span>" : "<span class=''>否</span>";
-		console.log(data);
-		$("#sh-suggestion-find").html("是否找到："+isFound);
-		$("#sh-suggestion-count").html("选择数量："+data.count);
-		$("#sh-suggestion-path").html("元素路径：<kbd>"+data.path+"</kbd>");
-		$("#sh-suggestion-recommend").html("建议选择：<code>"+data.recommend+"</code>");
-		$("#sh-suggestion-suggestion").html("备用选择：<code>"+data.suggestion+"</code>");
-	}
 	function isCorrectSelection(currentSelected,selector){
 		var selectorResult = $(selector);
 		// console.log("---Testing:"+selector+'---');

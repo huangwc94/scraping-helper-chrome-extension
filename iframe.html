@@ -6,7 +6,7 @@
     <link href="css/bootstrap.min.css" rel="stylesheet"></link>
     <link href="css/sh-iframe.css" rel="stylesheet"></link>
     <script type="text/javascript" src="js/jquery.js"></script>
-    <!-- <script type="text/javascript" src="js/sh-iframe.js"></script> -->
+    <script type="text/javascript" src="js/sh-iframe.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
   </head>
   <body>
@@ -15,11 +15,8 @@
       <div class="panel-heading">内容选择器控制面板<div style="float:right" id="sh-action-close"><span  class="glyphicon glyphicon-remove" aria-hidden="true"></span></div></div>
       <div class="panel-body">
       <ul class="btn-group" role="group" aria-label="...">
+        <button type="button" class="btn btn-default" id='sh-action-detail'>查看详情</button>
         <button type="button" class="btn btn-default" id='sh-action-reset'>重置</button>
-      </ul>
-      <ul class="btn-group" role="group" aria-label="...">
-        <button type="button" class="btn btn-default" id='sh-action-copy-selector'>拷贝选择器</button>
-        <button type="button" class="btn btn-default" id='sh-action-copy-content'>拷贝内容</button>
       </ul>
       <p>
         示例：
@@ -32,11 +29,33 @@
         <li class="list-group-item" id='sh-suggestion-find'>是否找到：12</li>
         <li class="list-group-item" id='sh-suggestion-count'>选择数量：12</li>
         <li class="list-group-item" id='sh-suggestion-path'>元素路径：<kbd>cd</kbd></li>
-        <li class="list-group-item" id='sh-suggestion-suggestion'>建议选择：<code>.article</code></li>
         <li class="list-group-item" id='sh-suggestion-recommend'>备用选择：<code>.article h1</code> </li>
+        <li class="list-group-item" id='sh-suggestion-suggestion'>建议选择：<code>.article</code></li>
+        
       </ul>
 
     </div>
-    <div id='sh-modal'></div>
+
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="sh-modal-title">Modal title</h4>
+          </div>
+          <div class="modal-body" id="sh-modal-content">
+            
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    
   </body>
 </html>
