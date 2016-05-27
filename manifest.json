@@ -3,7 +3,7 @@
 
   "name": "数据抓取分析工具",
   "description": "自动生成最简HTML选择命令，用于爬虫网页内容分析",
-  "version": "0.1",
+  "version": "0.3",
   "icons": { "128": "icon.png" },
   "browser_action": {
     "default_icon": "icon.png",
@@ -27,13 +27,7 @@
       
       "js": ["js/jquery.js", "js/sh-main.js"]
 
-    }//,
-    // {
-    //   "matches": ["<all_urls>"],
-    //   "all_frames":true,
-    //   "js": ["js/jquery-1.12.4.min.js","js/sh-iframe.js"],
-    //   "run_at": "document_idle"
-    // }
+    }
   ],
   "commands": {
           "toggle-feature-foo": {
