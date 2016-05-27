@@ -258,7 +258,7 @@ $(function(){
 	}
 
 	/*
-		
+		Recursive BFS
 	*/
 	function breadthFirstSearchAux(currentState,currentNode,selectorArray){
 		
