@@ -136,8 +136,8 @@ $(function(){
 			// Exciting part ==================================
 			var result = apporach1_SimpleSearch();
 
-			if(!result.findSolution)
-				result = apporach2_BreadthFirstSearch();
+			//if(!result.findSolution)
+				//result = apporach2_BreadthFirstSearch();
 			
 
 			result.modal = data;
