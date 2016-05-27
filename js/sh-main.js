@@ -1,14 +1,13 @@
 $(function(){
-	var started = false;
-	var state = 0;
-	//start();
-	// chrome.commands.onCommand.addListener(function(command) {
- //        console.log('Command:', command);
- //      });
-    
-	console.log("sh-main.js run");
+
+	var started = false; // indicate if our extension is started.
+	var state = 0; // 0: in hover mode 1: in select mode
+    var gCurrentNode; // this global variable will remember which element we last clicked
 	
 	
+	/*
+		This handler will accept launch commend from pop up html (when you click icon on your tab, you get popup.html)
+	*/
 	chrome.runtime.onMessage.addListener(
     function(request, sender, response) {
         if(request.start){
@@ -19,9 +18,12 @@ $(function(){
         	
         }
        
-        //addPanel();
+
 	});
 	
+	/*
+		This message handler used to commnicuate with iframe panel shown on your top right web page
+	*/
 	window.addEventListener('message', messageHandler);
 	function messageHandler(e){
 		if(e.data.type=="close"){
@@ -41,89 +43,125 @@ $(function(){
 		}
 	}
 
-
+	/*
+		launch the program. add eventlistener, inject iframe panel
+	*/
 
 	function start(){
 		if(started){
-			alert("本插件已经启动");
+			alert("本插件已经启动!");
 			return;
 		}
+
 		started = true;
 
-
-		console.log("Scraping Helper:Successfully Injected!");
-		
 		$("*").hover(function(e){
 			if(state !== 0){
 				return;
 			}
+			gCurrentNode = $(this);
 			removeAllElementClass("sh-hover");
 			removeAllElementClass("sh-predict");
 			e.stopPropagation();
 			e.preventDefault();
 			
 			var path = $(this).getFullPathName(true);
-			var selected_node = $(this);
-			$($(this).prop("tagName").toLowerCase()).each(function(){
+
+			
+
+			$($(this).prop("tagName").toLowerCase()).each(function(){ // for all the same tag, we try to find the rest "same" element
 				var this_path = $(this).getFullPathName(true);
 				if(this_path == path){
-					$(this).css("border","soild");
+					
 					$(this).addClass("sh-hover");
 				}
 			});
+			// call update for finding selector
 			update();
 			
 		});
+
 		$("*").click(function(e){
+
 			state = 1;
+			
 			e.stopPropagation();
 			e.preventDefault();
+
 			removeAllElementClass("sh-predict");
-			if($(this).hasClass("sh-select")){
+
+			if($(this).hasClass("sh-select")){ // unselect element
 				$(this).removeClass("sh-select");
 				
 			}else{
+				// select extra element that is not automatically selected in hover mode
 				if($(this).prop("tagName") == $(".sh-hover").prop("tagName") || $(this).prop("tagName") == $(".sh-select").prop("tagName")){
 					$(this).addClass("sh-select");
+					gCurrentNode = $(this);
 				}
 				
 			}
+
+			// replace rest of the element with sh-hover
 			$(".sh-hover").addClass("sh-select").removeClass("sh-hover");
 			
+			// call update for finding selector
 			update();
 			
 		});
-		addPanel();
 		
+		console.log("Scraping Helper:Successfully Injected!");
 	}
-	var isShowingModal = false;
 	
+	/*
+		This function is responsible for adding sh-hover or sh-select to the given elements
+		***And search for optimized selector***
+		Called each time your cursor hover an element or click on element
+	*/
 
 	function update(){
-		var result = apporach1_BreadthFirstSearch();
-		//console.log($("#sh-iframe")[0].contentWindow);
+		
+		
+		
+		// Render Part   =========================================
 		var className;
 		if(state == 0){
 			className = 'sh-hover';
 		}else{
 			className = "sh-select";
-		}
-		var data = "";
-		$("."+className).each(function(){
-			data += "<p>"+$(this).text() + "</p><br>";
+			var data = "";
+			$("."+className).each(function(){
+				data += "<p>"+$(this).text() + "</p><br>";
 			});
-		
-		result.modal = data;
+			// Exciting part ==================================
+			var result = apporach1_SimpleSearch();
 
-
-		$("#sh-iframe")[0].contentWindow.postMessage({data:result,type:"update"},"*");
-		// chrome.runtime.sendMessage({data:result,update:true},function(e){
+			if(!result.findSolution)
+				result = apporach2_BreadthFirstSearch();
 			
-		// });
+
+			result.modal = data;
+
+			// Message Part =========================================
+			// Post message to iframe panel for updating proposes
+			$("#sh-iframe")[0].contentWindow.postMessage({data:result,type:"update"},"*");
+		}
+		
+
+		
+
 	}
+
+	// if we dont find correct selector, this global variable will remeber the most closed selector
 	var current_best_solution = "";
 	var current_best_different = 99999999999;
-	function apporach1_BreadthFirstSearch(){
+
+	/*
+		Linear iteration apporach fast
+
+	*/
+
+	function apporach1_SimpleSearch(){
 		var currentUseingClassName = state === 0 ? "sh-hover" : "sh-select";
 		//console.log("============================================================");
 		var currentSelected = $("."+currentUseingClassName);
@@ -187,6 +225,100 @@ $(function(){
 		return {path:path.toLowerCase(),count:count,recommend:recommend,suggestion:suggestion,findSolution:findSolution};
 	}
 
+	/*
+		Apporach 1 Breadth First Search
+		Looping All possible combination of selector, including element class and element id
+		For bottom to top of data tree
+		
+	*/
+	function apporach2_BreadthFirstSearch(){
+		var currentUsingClassName = state === 0 ? "sh-hover" : "sh-select";
+		
+		var currentSelected = $("."+currentUsingClassName);
+		
+		var recommend;
+
+		var findSolution = false;
+
+
+		if(currentSelected.length>0){
+
+			resultData   = breadthFirstSearchAux(currentSelected,gCurrentNode,[]);
+			
+			findSolution = resultData.findSolution;
+			recommend    = resultData.recommend
+
+		}
+		
+		var path = gCurrentNode.getFullPathName(true);
+		path     = path || "";
+		var count = currentSelected.length;
+
+		return {path:path.toLowerCase(),count:count,recommend:recommend,suggestion:current_best_solution,findSolution:findSolution};
+	}
+
+	/*
+		
+	*/
+	function breadthFirstSearchAux(currentState,currentNode,selectorArray){
+		
+		// prepare loop selector for this level
+		
+		try{
+			var thisNodeTag  = currentNode.prop("tagName").toLowerCase();
+			if(thisNodeTag == "body"){
+				return {findSolution:false,recommend:""};
+			}
+		}catch(err){
+			console.log("Error!!!!!!!");
+			console.log(currentNode);
+			return {findSolution:false,recommend:""};
+		}
+		var modifierList = [thisNodeTag];
+
+		var classList = currentNode.attr('class')===undefined ? [] :currentNode.attr('class').split(/\s+/);
+
+		$.each(classList,function(index,item){
+			if(item == 'sh-select' || item == 'sh-hover' || item == '' || item == 'sh-prdict'){
+				return;
+			}
+			modifierList.push(thisNodeTag+"."+item);
+		});
+
+		// var thisNodeId = currentNode.attr("id") || "";
+		// if(thisNodeId != ""){
+		// 	modifierList.push("#"+thisNodeId);
+		// }
+
+		
+		// run loop
+		for(var i = 0;i<modifierList.length;i++){
+
+			var trival_selector = modifierList[i] + " " + selectorArray.join(" ");
+			if(isCorrectSelection(currentState,trival_selector)){
+				return {findSolution:true,recommend:trival_selector};
+			}
+		};
+
+		for(var i = 0;i<modifierList.length;i++){
+
+			selectorArray.unshift(modifierList[i]);
+			result = breadthFirstSearchAux(currentState,$(currentNode.parent()[0]),selectorArray);
+			if(result.findSolution){
+				return {findSolution:true,recommend:result.recommend};
+			}
+			selectorArray.shift();
+		};
+		return {findSolution:false,recommend:""};
+
+	}
+
+
+
+	/*
+		This function will check if the selector is correct
+		Also, it update the current_best_solution and its difference, in case we dont find correct solution
+	*/
 	function isCorrectSelection(currentSelected,selector){
 		var selectorResult = $(selector);
 		// console.log("---Testing:"+selector+'---');
@@ -195,7 +327,7 @@ $(function(){
 		// console.log("--------------------------");
 		removeAllElementClass("sh-predict");
 
-		if($(".sh-hover").length == 0){
+		if($(".sh-hover").length == 0){ // this only work if we had chosen an element, not in hover mode
 			selectorResult.addClass("sh-predict");
 			var different_count = Math.abs(currentSelected.length - selectorResult.length);
 			if(different_count < current_best_different){
@@ -205,13 +337,10 @@ $(function(){
 		}
 			
 		
-
+		// the fastest check, in most case (99%), same length means we have correct answer
 		return currentSelected.length == selectorResult.length;
 
-		// if (currentSelected.length != selectorResult.length){
-
-		// 	return false;
-		// }
+		// will uncomment following script if necessary
 
 		// // for(var i = 0 ; i < currentSelected ; i++ ){
 		// // 	if (selectorResult[i] != currentSelected[i]){
@@ -221,10 +350,14 @@ $(function(){
 		// return true;
 		
 	}
+
+	// helper function, remove class from DOM
 	function removeAllElementClass(className){
 		$("."+className).removeClass(className);
 	}
 
+	// extend jQuery selector
+	// finding path from given element to top of element tree (body tag)
     $.fn.extend({
         getFullPathName: function(stopAtBody){
             stopAtBody = stopAtBody || false;

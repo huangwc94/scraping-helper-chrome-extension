@@ -33,7 +33,12 @@ $(function(){
 		$("#sh-suggestion-count").html("选择数量："+data.count);
 		$("#sh-suggestion-path").html("元素路径：<kbd>"+data.path+"</kbd>");
 		$("#sh-suggestion-recommend").html("建议选择：<code>"+data.recommend+"</code>");
-		$("#sh-suggestion-suggestion").html("备用选择：<code>"+data.suggestion+"</code>");
+
+		$("#sh-suggestion-suggestion").html("备用选择：<code></code>");
+		if(!data.findSolution)
+			$("#sh-suggestion-suggestion").html("备用选择：<code>"+data.suggestion+"</code>");
+		
+		
 		$("#sh-modal-content").html(data.modal);
 		$("#sh-modal-title").html("建议选择：<code>"+data.recommend+"</code>");
 	}
