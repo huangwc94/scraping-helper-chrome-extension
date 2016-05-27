@@ -39,7 +39,7 @@ $(function(){
 			$("#sh-iframe").css("height","90%");
 		}else if(e.data.type=="collpse"){
 			$("#sh-iframe").css("width","270px");
-			$("#sh-iframe").css("height","440px");
+			$("#sh-iframe").css("height","540px");
 		}
 	}
 
@@ -220,9 +220,9 @@ $(function(){
 			suggestion = "";
 		}
 
-		//$(document).find("#sh-suggestion").html("元素路径："+path.toLowerCase()+"<br>选择数量："+count+"<br>选择器：<span id='sh-suggestion-code'>"+suggestion+"</span>");
+		var predict_count = $(".sh-predict").length;
 
-		return {path:path.toLowerCase(),count:count,recommend:recommend,suggestion:suggestion,findSolution:findSolution};
+		return {path:path.toLowerCase(),count:{select:count,predict:predict_count},recommend:recommend,suggestion:suggestion,findSolution:findSolution};
 	}
 
 	/*
@@ -253,8 +253,8 @@ $(function(){
 		var path = gCurrentNode.getFullPathName(true);
 		path     = path || "";
 		var count = currentSelected.length;
-
-		return {path:path.toLowerCase(),count:count,recommend:recommend,suggestion:current_best_solution,findSolution:findSolution};
+		var predict_count = $(".sh-predict").length;
+		return {path:path.toLowerCase(),count:{select:count,predict:predict_count},recommend:recommend,suggestion:current_best_solution,findSolution:findSolution};
 	}
 
 	/*
