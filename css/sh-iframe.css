@@ -1,21 +1,19 @@
 #sh-panel{
 	height:100%;
+	width:100%;
 	
 }
 #sh-modal {
 	overflow:auto;
 
-	height:100% !important;
+	height:95% !important;
 }
 
-#sh-modal .col-md-9{
-
-}
 
 .sh-float-left{
 	position:relative;
 	top:-20px;
-	left:-20px;
+	left:-25px;
 
 }
 
@@ -29,18 +27,3 @@ h3 span{
 body{
 	font-family: "微软雅黑","黑体",sans-serif;
 }
-/*#sh-modal {
-	
-	font-family: "Segoe UI", "黑体","Lucida Grande", Tahoma, sans-serif !important;
-	display:none;
-	font-size:15px !important; 
-	color: #fff;
-	background-color:#4abdac ;
-	z-index: 999999999;
-	position:fixed;
-	padding:20px;
-	top:35%;
-	left:35%;
-	width:30%;
-	height:40%;
-}*/

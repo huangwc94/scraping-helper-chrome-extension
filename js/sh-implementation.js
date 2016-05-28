@@ -64,9 +64,9 @@ function apporach1_SimpleSearch(){
 		suggestion = "";
 	}
 
-	var predict_count = $(".sh-predict").length;
+	
 
-	return {path:path.toLowerCase(),count:{select:count,predict:predict_count},recommend:recommend,suggestion:suggestion,findSolution:findSolution};
+	return {path:path.toLowerCase(),count:{select:count,predict:0},recommend:recommend,suggestion:suggestion,findSolution:findSolution};
 }
 
 /*

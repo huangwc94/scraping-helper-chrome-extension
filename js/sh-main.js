@@ -46,10 +46,12 @@ function messageHandler(e){
 		state = 0;
 	}else if(e.data.type=="expand"){
 		$("#sh-iframe").removeClass("sh-iframe-normal").addClass("sh-iframe-expand");
-		$("body").append("<div id='sh-cover'></div>");
+		$("body").append("<div id='sh-cover' ></div>");
+
 		$("#sh-cover").click(function(e){
 			e.stopPropagation();
 		});
+
 	}else if(e.data.type=="collpse"){
 		$("#sh-iframe").removeClass("sh-iframe-expand").addClass("sh-iframe-normal");
 		$("#sh-cover").unbind();
@@ -166,12 +168,15 @@ function update_select(){
 		//result = apporach2_BreadthFirstSearch();
 	
 	result.modal = data;
-
 	removeAllElementClass("sh-predict");
-	
-	$(result.recommend).addClass("sh-predict");
-	
 
+	if(result.findSolution){
+		$(result.recommend).addClass("sh-predict");
+	}else{
+		$(result.suggestion).addClass("sh-predict");
+	}
+	
+	result.count.predict = $(".sh-predict").length;
 
 	// Message Part =========================================
 	// Post message to iframe panel for updating proposes
@@ -217,6 +222,9 @@ function isCorrectSelection(currentSelected,selector){
 	// console.log("CurrentSelected:" + currentSelected.length);
 	// console.log("SelectorSelected: "+ selectorResult.length);
 	// console.log("--------------------------");
+	
+	
+	
 	
 
 	if($(".sh-hover").length == 0){ // this only work if we had chosen an element, not in hover mode
