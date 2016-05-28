@@ -2,8 +2,11 @@ $(function(){
 	$('.sh-hide-on-collpse').hide();
 	window.addEventListener('message', messageHandler);
 	function messageHandler(e){
+		console.log(e.data);
 		if(e.data.type=="update"){
 			updatePanel(e.data.data);
+		}else if(e.data.type == "address"){
+			$("#sh-modal-address").text(e.data.address);
 		}
 	}
 	$("#sh-action-reset").click(function(e){
@@ -44,6 +47,13 @@ $(function(){
 		
 	});
 
+	$(".sh-action-view").click(function(){
+		$(".sh-hide").hide();
+		$("#sh-content-"+$(this).attr("data")).show();
+
+	});
+
+
 	// $("#myModal").on("hide.bs.modal",function(){
 	// 	parent.postMessage({type:"collpse"},"*");
 	// });
@@ -53,7 +63,7 @@ $(function(){
 
 		
 		var isFound = data.findSolution? "label label-success" : "label label-danger";
-		console.log(data);
+		
 		
 		$("#sh-suggestion-count").html("选择数量：<span class='"+isFound+"'>"+data.count.select + "/" +data.count.predict+"</span>");
 		$("#sh-suggestion-path").html("元素路径：<kbd>"+data.path+"</kbd>");
@@ -64,7 +74,14 @@ $(function(){
 			$("#sh-suggestion-suggestion").html("备用选择：<code>"+data.suggestion+"</code>");
 		
 
-		$("#sh-modal-content").html(data.modal);
+		$("#sh-modal-content").html(
+			  "<div class='sh-hide' id='sh-content-text'>"  + data.modal.text_ + "</div>" 
+			+ "<div class='sh-hide' id='sh-content-href'>"  + data.modal.href_ + "</div>"
+			+ "<div class='sh-hide' id='sh-content-src'>"   + data.modal.src_ + "</div>"
+			+ "<div class='sh-hide' id='sh-content-class'>" + replaceAll(data.modal.class_,"sh-select", "") + "</div>"
+			);
+		$(".sh-hide").hide();
+		$("#sh-content-text").show();
 		$("#sh-modal-title").html("建议选择：<code>"+data.recommend+"</code>");
 
 
@@ -73,4 +90,8 @@ $(function(){
 	function removeAllElementClass(className){
 		$("."+className, window.parent.document).removeClass(className);
 	}
+	function replaceAll(string,search, replacement) {
+    
+    	return string.split(search).join(replacement);
+	};
 });

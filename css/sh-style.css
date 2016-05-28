@@ -49,16 +49,14 @@
 	
 }
 
-
 #sh-cover {
     position:fixed;
     top:0;
     bottom:0;
     left:0;
     right:0;
+    opacity:0.8;
     background-color:#000;
-    opacity:0.7;
     z-index:2147483644;
-    
 }
 

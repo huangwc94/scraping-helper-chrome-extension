@@ -46,8 +46,8 @@ function messageHandler(e){
 		state = 0;
 	}else if(e.data.type=="expand"){
 		$("#sh-iframe").removeClass("sh-iframe-normal").addClass("sh-iframe-expand");
-		$("body").append("<div id='sh-cover' ></div>");
-
+		$("body").append("<div id='sh-cover' class='sh-black' ></div>");
+		$("#sh-iframe")[0].contentWindow.postMessage({address:window.location.href,type:"address"},"*");
 		$("#sh-cover").click(function(e){
 			e.stopPropagation();
 		});
@@ -128,6 +128,7 @@ function start(){
 	});
 	
 	console.log("Scraping Helper:Successfully Injected!");
+
 }
 
 /*
@@ -139,7 +140,7 @@ function update_hover(){
 	// Render Part   =========================================
 	var className = 'sh-hover';
 
-	var result = {path:gCurrentNode.getFullPathName(true).toLowerCase(),count:{select:$("."+className).length,predict:0},recommend:"",suggestion:"",findSolution:false};
+	var result = {path:gCurrentNode.getFullPathName(true).toLowerCase(),count:{select:$("."+className).length,predict:0},recommend:"",suggestion:"",findSolution:false,modal:{text_:"",src_:"",href_:"",class_:""}};
 
 	// Message Part =========================================
 	// Post message to iframe panel for updating proposes
@@ -154,10 +155,20 @@ function update_hover(){
 function update_select(){
 	// Render Part   =========================================
 	var className = "sh-select";
-	var data = "";
+	
 	var id = 1;
+
+
+	var text = "";
+	var src = "";
+	var href = "";
+	var class_ = "";
+
 	$("."+className).each(function(){
-		data += "<div class='col-md-12 well'><span style='font-size:14px;' class='label label-success sh-float-left'>"+id+"</span>" + $(this).html() + "</div>";
+		text += "<div class='col-md-12 well'><span style='font-size:14px;' class='label label-success sh-float-left'>"+id+"</span>" + $(this).parent().html() + "</div>";
+		href += "<div class='col-md-12 well'><span style='font-size:14px;' class='label label-success sh-float-left'>"+id+"</span><br>" + $(this).getChildrenTree("href") + "</div>";
+		src += "<div class='col-md-12 well'><span style='font-size:14px;' class='label label-success sh-float-left'>"+id+"</span><br>" + $(this).getChildrenTree("src") + "</div>";
+		class_ += "<div class='col-md-12 well'><span style='font-size:14px;' class='label label-success sh-float-left'>"+id+"</span><br>" + $(this).getChildrenTree("class") + "</div>";
 		id ++;
 	});
 
@@ -166,8 +177,12 @@ function update_select(){
 
 	//if(!result.findSolution)
 		//result = apporach2_BreadthFirstSearch();
-	
-	result.modal = data;
+	result.modal = {};
+	result.modal.text_ = text;
+	result.modal.src_  = src;
+	result.modal.href_ = href;
+	result.modal.class_ = class_;
+
 	removeAllElementClass("sh-predict");
 
 	if(result.findSolution){
@@ -205,8 +220,33 @@ $.fn.extend({
             return result;
         };
         return this.length > 0 ? traverseUp(this[0]) : '';
+    },
+
+    getChildrenTree: function(type){
+
+        function traverseDown(el,depth,type){
+
+        	var indicator = "";
+        	if(depth>1){
+        		indicator = ""+Array(depth).join("&nbsp;&nbsp;&nbsp;&nbsp;") + "|-->";
+        	}
+        	var attr = $(el).attr(type) === undefined || $(el).attr(type) == "" ? "" : $(el).attr(type);
+
+            var result = indicator+"<span class='label label-default'>"+$(el).prop("tagName").toLowerCase() +"</span>"+" : "+"<code>"+attr + "</code><br>";
+            var children = $(el).children();
+            children.each(function(each,obj){
+            	
+            	result += traverseDown(obj,depth + 1,type);
+            });
+            return result;
+        };
+        return this.length > 0 ? traverseDown(this[0],1,type) : '';
+        
     }
 });
+
+
+
 
 // if we dont find correct selector, this global variable will remeber the most closed selector
 var current_best_solution = "";

@@ -1,7 +1,7 @@
 #sh-panel{
 	height:100%;
 	width:100%;
-	
+	z-index:2147483644;
 }
 #sh-modal {
 	overflow:auto;
@@ -23,6 +23,9 @@
 
 h3 span{
 	margin-right: 10px;
+}
+h3 small{
+	margin-left:20px;
 }
 body{
 	font-family: "微软雅黑","黑体",sans-serif;
