@@ -1,4 +1,4 @@
-Version：0.1 Alpha
+﻿Version：0.1 Alpha
 # 数据抓取分析助手 (Chrome插件板)
 ### 根据选择元素，自动生成最简HTML选择命令，用于爬虫网页内容分析
 ## 功能：
@@ -13,3 +13,4 @@ Version：0.1 Alpha
 ![Wiki](https://github.com/huangwc94/scraping-helper-chrome-extension/blob/master/screenshot/wiki.jpg)  
 
 本软件版权为 MIT LICENSE
+Contributor LordBread
