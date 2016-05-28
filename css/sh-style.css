@@ -1,6 +1,7 @@
 .sh-predict {
 	border:2px solid #3f3f3f;
 }
+
 .sh-hover {
 
 	background-color: rgba(0,204,255,0.5) !important;
@@ -9,6 +10,7 @@
 
 
 }
+
 .sh-select {
 
 	background-color: rgba(0,153,51,0.8) !important;
@@ -17,12 +19,11 @@
 
 
 }
+
 #sh-iframe {
     
     border-radius: 4px;
     display: block;
- 	height:540px;
-	width: 270px;   
     position: fixed !important;
     right: 21px;
     top: 21px;
@@ -32,65 +33,31 @@
     border: 0px none rgb(0, 0, 0);
     font-family: "Segoe UI", "黑体","Lucida Grande", Tahoma, sans-serif !important;
     outline: rgba(0, 0, 0, 0) none 0px;
-    transition: -webkit-transform 300ms ease, opacity 300ms ease;
+    /*transition: -webkit-transform 300ms ease, opacity 300ms ease;*/
+    transition: width 0.5s,height 0.5s;
+    
 }
-/*
-div.sh-move-to-right{
-	right:0px;
-}
-div.sh-move-to-left{
-	left:0px;
-}
-#sh-panel{
-	overflow:auto;
-	margin:0 !important;
-	padding:10px !important;
-	font-family: "Segoe UI", "黑体","Lucida Grande", Tahoma, sans-serif !important;
-	position:fixed !important;
-	width:300px !important;
+
+.sh-iframe-normal {
+	width:270px !important;
 	height:400px !important;
-	top:0px !important;
-	z-index: 999000000 !important;
-	padding:20px !important;
-	font-size: 14px !important;
-	color:#fff !important;
-	font-weight: 300 !important;
-	background-color: #4abdac !important;
-	line-height: 30px !important;
+	
 }
-#sh-panel ul li{
-	display:inline !important;
-	margin-right: 10px !important;
-	margin-bottom: 10px !important;
-	font-family: "Segoe UI", "黑体","Lucida Grande", Tahoma, sans-serif !important;
-	background-color: #fc4a1a;
-	color:#fff !important;
-	border:none !important;
-	padding:5px;
-	width:90px;
-	margin: 0px;
-	cursor:pointer;
+.sh-iframe-expand {
+	width:90% !important; 
+	height:90% !important;
+	
 }
-#sh-panel ul li:hover{
-	background-color: #f7b733;
 
+#sh-cover {
+    position:fixed;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    background-color:#000;
+    opacity:0.8;
+    z-index:2147483644;
+    transition:  background-color 0.5s;
 }
-#sh-panel ul{
-	text-align: center;
-	margin:0 !important;
-	padding:0 !important;
-	display:block !important;
-}
-#sh-panel h4{
-	color:#fff !important;
-	font-size:15px !important; 
-	text-align: center!important;
-	margin:0 !important;
-	padding:0 !important;
-}
-#sh-suggestion {
-	text-align: left;
-}
-*/
-
 

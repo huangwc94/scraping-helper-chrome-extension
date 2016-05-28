@@ -1,5 +1,5 @@
 $(function(){
-	console.log(chrome);
+	$('.sh-hide-on-collpse').hide();
 	window.addEventListener('message', messageHandler);
 	function messageHandler(e){
 		if(e.data.type=="update"){
@@ -8,9 +8,10 @@ $(function(){
 	}
 	$("#sh-action-reset").click(function(e){
 			e.stopPropagation();
+			
 			parent.postMessage({type:"reset"},"*");
-			$("#sh-suggestion-find").html("是否找到：<span class='bg-danger'>否</span>");
-			$("#sh-suggestion-count").html("选择数量：0/0");
+			
+			$("#sh-suggestion-count").html("选择数量：<span class='label label-danger'>0/0</span>");
 			$("#sh-suggestion-path").html("元素路径：<kbd></kbd>");
 			$("#sh-suggestion-recommend").html("建议选择：<code></code>");
 			$("#sh-suggestion-suggestion").html("备用选择：<code></code>");
@@ -24,20 +25,37 @@ $(function(){
 
 	$("#sh-action-detail").click(function(e){
 		e.stopPropagation();
-		parent.postMessage({type:"expand"},"*");
-		$('#myModal').modal({});
+
+		
+		if(state === 0){
+			setTimeout(function(){
+				$('.sh-hide-on-collpse').show();
+			},600);
+			
+			$(this).html("关闭详情");
+			state = 1;
+			parent.postMessage({type:"expand"},"*");
+		}else{
+			$('.sh-hide-on-collpse').hide();
+			$(this).html("查看详情");
+			state = 0;
+			parent.postMessage({type:"collpse"},"*");
+		}
+		
 	});
-	$("#myModal").on("hide.bs.modal",function(){
-		parent.postMessage({type:"collpse"},"*");
-	});
+
+	// $("#myModal").on("hide.bs.modal",function(){
+	// 	parent.postMessage({type:"collpse"},"*");
+	// });
 
     console.log("iframe init successful");
 	function updatePanel(data){
 
-		var isFound = data.findSolution? "<span class='bg-success'>是</span>" : "<span class='bg-danger'>否</span>";
+		
+		var isFound = data.findSolution? "label label-success" : "label label-danger";
 		console.log(data);
-		$("#sh-suggestion-find").html("是否找到："+isFound);
-		$("#sh-suggestion-count").html("选择数量："+data.count.select + "/" +data.count.predict);
+		
+		$("#sh-suggestion-count").html("选择数量：<span class='"+isFound+"'>"+data.count.select + "/" +data.count.predict+"</span>");
 		$("#sh-suggestion-path").html("元素路径：<kbd>"+data.path+"</kbd>");
 		$("#sh-suggestion-recommend").html("建议选择：<code>"+data.recommend+"</code>");
 
@@ -48,6 +66,9 @@ $(function(){
 
 		$("#sh-modal-content").html(data.modal);
 		$("#sh-modal-title").html("建议选择：<code>"+data.recommend+"</code>");
+
+
+
 	}
 	function removeAllElementClass(className){
 		$("."+className, window.parent.document).removeClass(className);

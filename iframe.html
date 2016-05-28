@@ -12,38 +12,67 @@
   <body>
     
    <div id='sh-panel' class='panel panel-primary'>
-      <div class="panel-heading">内容选择器控制面板<div style="float:right" id="sh-action-close"><span  class="glyphicon glyphicon-remove" aria-hidden="true"></span></div></div>
-      <div class="panel-body">
-      <ul class="btn-group" role="group" aria-label="...">
-        <button type="button" class="btn btn-default" id='sh-action-detail'>查看详情</button>
-        <button type="button" class="btn btn-default" id='sh-action-reset'>重置</button>
-      </ul>
-      <p>说明：</p>
-      <ul>
-        <li>本插件会使超链接失效</li>
-        <li>目前不支持AJAX</li>
-        <li>在页面复杂的情况下可能会使浏览器无响应</li>
-      </ul>
-      <p>
-        示例：
-        <span style=" background-color: rgba(0,204,255,0.5) !important; color:#fff !important;">准备选择</span> 
-        <span style=" background-color: rgba(0,153,51,0.8) !important; color:#fff !important;">已经选择</span> 
-        <span style=" border:2px solid #3f3f3f;">预测选择</span>
-      </p>
-      </div>
-       <ul class="list-group">
-        <li class="list-group-item" id='sh-suggestion-find'>是否找到：<span class='bg-danger'>否</span></li>
-        <li class="list-group-item" id='sh-suggestion-count'>选择数量：0/0</li>
-        <li class="list-group-item" id='sh-suggestion-path'>元素路径：<kbd></kbd></li>
-        <li class="list-group-item" id='sh-suggestion-recommend'>备用选择：<code></code> </li>
-        <li class="list-group-item" id='sh-suggestion-suggestion'>建议选择：<code></code></li>
-        
-      </ul>
+      <div class="panel-heading">内容选择器控制面板<div style="float:right ; margin:0px ;padding:0px;" id="sh-action-close" class="btn btn-sm"><span  class="glyphicon glyphicon-remove" aria-hidden="true"></span></div></div>
+      <div class="row">
+        <div class="col-sm-3">
+          <div class="panel-body" >
+          <ul class="btn-group" style="margin-top:20px; margin-bottom: 40px" role="group" aria-label="...">
+            <button type="button" style="width:80px" class="btn btn-default" id='sh-action-detail'>查看详情</button>
+            <button type="button" style="width:80px" class="btn btn-default" id='sh-action-reset'>重置</button>
+          </ul>
+          <p>
+            示例：
+            <span class="label label-info" style=" background-color: rgba(0,204,255,0.5) !important; color:#fff !important;">准备选择</span> 
+            <span class="label label-success" style=" background-color: rgba(0,153,51,0.8) !important; color:#fff !important;">已经选择</span> 
+            <span class="label" style=" border:2px solid #3f3f3f; color:#000 !important ;">预测选择</span>
+          </p>
+         
+           <ul class="list-group" style="margin-bottom: 50px;">
+            <div class="sh-hide-on-collpse" >
+              <h3 style="margin-left:20px"><span class="glyphicon glyphicon-th-list " aria-hidden="true"></span>信息</h3>
+            </div>
+            <li class="list-group-item" id='sh-suggestion-count'>选择数量：<span class='label label-danger'>0/0</span></li>
+            <li class="list-group-item" id='sh-suggestion-path'>元素路径：<kbd></kbd></li>
+            <li class="list-group-item" id='sh-suggestion-recommend'>建议选择：<code></code></li>
+            <li class="list-group-item" id='sh-suggestion-suggestion'>备用选择：<code></code> </li>
+          </ul>
 
+          <ul class="list-group sh-hide-on-collpse">
+            <div class="" >
+              <h3 style="margin-left:20px"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>工具</h3>
+            </div>
+            <li class="list-group-item" id='sh-extra-action-find'>是否找到：<span class='bg-danger'>否</span></li>
+            <li class="list-group-item" id='sh-extra-action-find'>选择数量：</li>
+            <li class="list-group-item" id='sh-extra-action-find'>元素路径：<kbd></kbd></li>
+            <li class="list-group-item" id='sh-extra-action-find'>备用选择：<code></code> </li>
+            <li class="list-group-item" id='sh-extra-action-find'>建议选择：<code></code></li>
+            
+          </ul>
+      </div>
+      </div>
+      <div class="col-sm-6 sh-hide-on-collpse" id="sh-modal">
+        <div class="page-header" >
+          <h3><span class="glyphicon glyphicon-search" aria-hidden="true"></span>内容</h3>
+        </div>
+        
+        <div id="sh-modal-content">
+        </div>
+     
+      </div>
+      <div class="col-sm-3 sh-hide-on-collpse">
+        <div class="page-header">
+          <h3><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>帮助</h3>
+        </div>
+        <ul>
+          <li><strong>本插件会使超链接失效</strong></li>
+          <li><strong>目前不支持AJAX</strong></li>
+          <li><strong>在页面复杂的情况下可能会使浏览器无响应</strong></li>
+        </ul>
+      </div>
     </div>
 
 
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+   <!--  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -59,7 +88,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
 
     

@@ -25,7 +25,7 @@
       "matches": ["<all_urls>"],
       "css": ["css/sh-style.css"],
       
-      "js": ["js/jquery.js", "js/sh-main.js"]
+      "js": ["js/jquery.js", "js/sh-main.js","js/sh-implementation.js"]
 
     }
   ],
