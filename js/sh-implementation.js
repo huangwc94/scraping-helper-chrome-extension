@@ -4,6 +4,28 @@
 */
 var availableFunction = [apporach1_SimpleSearch,apporach2_BreadthFirstSearch];
 
+/*
+	Apporach 1 Linear Search (Can solve most of the problem and ... fast)
+	Keep tring node with its class, if not, jump to its parent.
+
+	e.g
+	===============
+	div class="a b"
+	h1  class="c d" <-selected
+	===============
+	will try
+
+	h1
+	h1.c
+	h1.d
+
+	div h1
+	div.a h1
+	div.b h1
+
+	For bottom to top of data tree
+	
+*/
 
 function apporach1_SimpleSearch(){
 	var currentUseingClassName = state === 0 ? "sh-hover" : "sh-select";
@@ -70,9 +92,33 @@ function apporach1_SimpleSearch(){
 }
 
 /*
-	Apporach 1 Breadth First Search
+	Apporach 2 Breadth First Search
 	Looping All possible combination of selector, including element class and element id
 	For bottom to top of data tree
+
+	e.g
+	===============
+	div class="a b"
+	h1  class="c d" <-selected
+	===============
+	will try:
+
+	h1
+	h1.c
+	h1.d
+	
+	div h1
+	div.a h1
+	div.b h1
+
+	div h1.c
+	div.a h1.c
+	div.b h1.c
+
+	div h1.d
+	div.a h1.d
+	div.b h1.d
+
 	
 */
 function apporach2_BreadthFirstSearch(){
