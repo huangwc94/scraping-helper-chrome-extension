@@ -4,13 +4,13 @@
 ## 功能：
 * 根据选择的元素，自动计算相应的 Jquery selector， 并可以直接用于 python BeautifulSoup等package
 * 根据选择的元素，提取文本内容
-* 
+*
 
 
 
-![Zhihu](https://github.com/huangwc94/scraping-helper-chrome-extension/blob/master/screenshot/zhihu.jpg)  
-![Tieba](https://github.com/huangwc94/scraping-helper-chrome-extension/blob/master/screenshot/tieba.jpg)  
-![Wiki](https://github.com/huangwc94/scraping-helper-chrome-extension/blob/master/screenshot/wiki.jpg)  
+![Zhihu](screenshot/zhihu.jpg)  
+![Tieba](screenshot/tieba.jpg)  
+![Wiki](screenshot/wiki.jpg)  
 
-本软件版权为 MIT LICENSE
+本软件版权为 MIT LICENSE  
 Contributor LordBread
