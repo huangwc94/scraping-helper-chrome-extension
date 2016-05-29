@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    
+
     <link href="css/bootstrap.min.css" rel="stylesheet"></link>
     <link href="css/sh-iframe.css" rel="stylesheet"></link>
     <script type="text/javascript" src="js/jquery.js"></script>
@@ -10,7 +10,7 @@
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
   </head>
   <body>
-    
+
    <div id='sh-panel' class='panel panel-primary'>
       <div class="panel-heading">内容选择器控制面板<div style="float:right ; margin:0px ;padding:0px;" id="sh-action-close" class="btn btn-sm"><span  class="glyphicon glyphicon-remove" aria-hidden="true"></span></div></div>
       <div class="row">
@@ -20,13 +20,13 @@
             <button type="button" style="width:80px" class="btn btn-default" id='sh-action-detail'>查看详情</button>
             <button type="button" style="width:80px" class="btn btn-default" id='sh-action-reset'>重置</button>
           </ul>
-          <p>
+          <p class="sh-hide-on-collpse" id="sh-explain">
             示例：
-            <span class="label label-info" style=" background-color: rgba(0,204,255,0.5) !important; color:#fff !important;">准备选择</span> 
-            <span class="label label-success" style=" background-color: rgba(0,153,51,0.8) !important; color:#fff !important;">已经选择</span> 
+            <span class="label label-info" style=" background-color: rgba(0,204,255,0.5) !important; color:#fff !important;">准备选择</span>
+            <span class="label label-success" style=" background-color: rgba(0,153,51,0.8) !important; color:#fff !important;">已经选择</span>
             <span class="label" style=" border:2px solid #3f3f3f; color:#000 !important ;">预测选择</span>
           </p>
-         
+
            <ul class="list-group" style="margin-bottom: 50px;">
             <div class="sh-hide-on-collpse" >
               <h3 style="margin-left:20px"><span class="glyphicon glyphicon-th-list " aria-hidden="true"></span>信息</h3>
@@ -49,8 +49,8 @@
                 <button type="button"  class="btn btn-default sh-action-view" data='href' >href</button>
               </ul>
             </li>
-            
-            
+
+
           </ul>
       </div>
       </div>
@@ -58,10 +58,10 @@
         <div class="page-header" >
           <h3><span class="glyphicon glyphicon-search" aria-hidden="true"></span>内容<small id="sh-modal-address"> href</small></h3>
         </div>
-        
+
         <div id="sh-modal-content">
         </div>
-     
+
       </div>
       <div class="col-md-3 sh-hide-on-collpse" style="padding-right:20px;">
         <div class="page-header">
@@ -80,34 +80,34 @@
           <!-- Nav tabs -->
           <ul class="nav nav-tabs" role="tablist">
             <li role="presentation " class="dropdown active">
-              <a href="#" id="myTabDrop1" class="dropdown-toggle active" data-toggle="dropdown" aria-controls="myTabDrop1-contents" aria-expanded="true">Python <span class="caret"></span></a> 
-              <ul class="dropdown-menu" aria-labelledby="myTabDrop1" id="myTabDrop1-contents"> 
-                <li><a href="#sh-bs" role="tab" id="dropdown1-tab" data-toggle="tab" aria-controls="dropdown1">BeautifulSoup</a></li> 
-                <li><a href="#sh-pyq" role="tab" id="dropdown2-tab" data-toggle="tab" aria-controls="dropdown2">PyQuery</a></li> 
-              </ul> 
+              <a href="#" id="myTabDrop1" class="dropdown-toggle active" data-toggle="dropdown" aria-controls="myTabDrop1-contents" aria-expanded="true">Python <span class="caret"></span></a>
+              <ul class="dropdown-menu" aria-labelledby="myTabDrop1" id="myTabDrop1-contents">
+                <li><a href="#sh-bs" role="tab" id="dropdown1-tab" data-toggle="tab" aria-controls="dropdown1">BeautifulSoup</a></li>
+                <li><a href="#sh-pyq" role="tab" id="dropdown2-tab" data-toggle="tab" aria-controls="dropdown2">PyQuery</a></li>
+              </ul>
             </li>
 
             <li role="presentation" class="dropdown">
-              <a href="#" id="myTabDrop1" class="dropdown-toggle" data-toggle="dropdown" aria-controls="myTabDrop1-contents" aria-expanded="true">Java <span class="caret"></span></a> 
-              <ul class="dropdown-menu" aria-labelledby="myTabDrop1" id="myTabDrop1-contents"> 
-                <li><a href="#sh-bs" role="tab" id="dropdown1-tab" data-toggle="tab" aria-controls="dropdown1">Java1</a></li> 
-                <li><a href="#sh-pyq" role="tab" id="dropdown2-tab" data-toggle="tab" aria-controls="dropdown2">Java2</a></li> 
-              </ul> 
+              <a href="#" id="myTabDrop1" class="dropdown-toggle" data-toggle="dropdown" aria-controls="myTabDrop1-contents" aria-expanded="true">Java <span class="caret"></span></a>
+              <ul class="dropdown-menu" aria-labelledby="myTabDrop1" id="myTabDrop1-contents">
+                <li><a href="#sh-bs" role="tab" id="dropdown1-tab" data-toggle="tab" aria-controls="dropdown1">Java1</a></li>
+                <li><a href="#sh-pyq" role="tab" id="dropdown2-tab" data-toggle="tab" aria-controls="dropdown2">Java2</a></li>
+              </ul>
             </li>
-            
-            
+
+
           </ul>
 
           <!-- Tab panes -->
           <div class="tab-content" style="margin-top:10px">
             <div role="tabpanel" class="tab-pane active well" id="sh-bs">
-              
+
             </div>
              <div role="tabpanel" class="tab-pane well" id="sh-pyq">
-               
+
             </div>
-            
-            
+
+
           </div>
 
         </div>
@@ -123,17 +123,17 @@
             <h4 class="modal-title" id="sh-modal-title">Modal title</h4>
           </div>
           <div class="modal-body" id="sh-modal-content">
-            
+
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-            
+
           </div>
         </div>
       </div>
     </div>
 
 
-    
+
   </body>
 </html>
