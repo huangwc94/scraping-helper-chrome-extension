@@ -1,0 +1,7 @@
+{
+  "extends": "react-app",
+  "globals": {
+    "chrome": "readonly"
+  },
+  "ignorePatterns": "**/*.js"
+}

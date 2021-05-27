@@ -1,0 +1,62 @@
+{
+  "extName": {
+    "message": "Scraping Helper"
+  },
+  "extDescription": {
+    "message": "Automatically generate CSS selector for web structure analysis"
+  },
+  "feature": {
+    "message": "Feature"
+  },
+  "featureList": {
+    "message": "Automatically generate CSS selector for web structure analysis|Inspect element attributes|Generate reference code"
+  },
+  "update": {
+    "message": "Updates"
+  },
+  "note": {
+    "message": "Note"
+  },
+  "noteList": {
+    "message": "This extension will influence website JS functionalities|Data from AJAX can not be download directly|Complex page structure will make extension unresponsive|Refresh webpage if strange things happen"
+  },
+  "launch": {
+    "message": "Launch"
+  },
+  "cantLaunch": {
+    "message": "This extension only functions in website"
+  },
+  "version": {
+    "message": "Version"
+  },
+  "codeHeader": {
+    "message": "This sample code is provided by Scraping helper Chrome Extension|Please respect to website rule and local law|Author of this extension is not responsible for any lawsuit"
+  },
+  "demoPrepare": {
+    "message": "Prepare"
+  },
+  "demoPredict": {
+    "message": "Predict"
+  },
+  "demoLegend": {
+    "message": "Indicator"
+  },
+  "reset": {
+    "message": "Reset"
+  },
+  "selectInstruction": {
+    "message": "Please click on web page element"
+  },
+  "selector": {
+    "message": "Selector"
+  },
+  "selectCount": {
+    "message": "Select count"
+  },
+  "preview": {
+    "message": "Preview"
+  },
+  "sampleCode": {
+    "message": "Sample code"
+  }
+}

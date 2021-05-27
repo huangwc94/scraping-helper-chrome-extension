@@ -1,0 +1,11 @@
+.sh-panel .ant-card-head-title {
+  font-size: 16px;
+}
+
+.sh-preview-cell {
+  border-color: goldenrod;
+  border-width: 2px;
+  border-style: solid;
+  padding: 5px;
+  margin: 10px;
+}

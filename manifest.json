@@ -1,41 +1,22 @@
 {
   "manifest_version": 2,
 
-  "name": "数据抓取分析工具",
-  "description": "自动生成最简HTML选择命令，用于爬虫网页内容分析",
+  "name": "__MSG_extName__",
+  "description": "__MSG_extDescription__",
   "version": "0.3",
   "icons": { "128": "icon.png" },
   "browser_action": {
     "default_icon": "icon.png",
     "default_popup": "popup.html"
   },
-  "permissions": [
-    "activeTab",
-    "tabs",
-    "commands",
-    "https://*/*",
-    "webNavigation"
-
-
-  ],
-
-  "web_accessible_resources":["icon.png","iframe.html"],
+  "permissions": ["activeTab", "tabs"],
+  "web_accessible_resources": ["icon.png", "panel.html"],
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
-      "css": ["css/sh-style.css"],
-      
-      "js": ["js/jquery.js", "js/sh-main.js","js/sh-implementation.js"]
-
+      "matches": ["http://*/*", "https://*/*"],
+      "css": ["css/global.css"],
+      "js": ["js/content.bundle.js"]
     }
   ],
-  "commands": {
-          "toggle-feature-foo": {
-            "suggested_key": {
-              "default": "Ctrl+Shift+Y",
-              "mac": "Command+Shift+Y"
-            },
-            "description": "Toggle feature foo"
-          }
-  }
+  "default_locale": "en"
 }

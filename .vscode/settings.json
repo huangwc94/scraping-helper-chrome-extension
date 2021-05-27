@@ -1,0 +1,5 @@
+{
+"editor.formatOnSave": true,
+"eslint.enable": false,
+"python.pythonPath": "C:\\dev\\python3\\python.exe"
+}

@@ -1,0 +1,62 @@
+{
+  "extName": {
+    "message": "数据抓取分析工具"
+  },
+  "extDescription": {
+    "message": "自动生成最简HTML选择命令，用于爬虫网页内容分析"
+  },
+  "feature": {
+    "message": "功能"
+  },
+  "featureList": {
+    "message": "自动生成最简HTML选择命令，用于爬虫网页内容分析|查看选择元素属性|生成参考代码"
+  },
+  "update": {
+    "message": "更新"
+  },
+  "note": {
+    "message": "说明"
+  },
+  "noteList": {
+    "message": "本插件使用期间会使部分网页JS失效|由JS载入的数据无法被直接下载|页面复杂可能导致无响应|遇到奇怪的行为请刷新页面"
+  },
+  "launch": {
+    "message": "启动"
+  },
+  "cantLaunch": {
+    "message": "无法在非网页页面下启动"
+  },
+  "version": {
+    "message": "版本"
+  },
+  "codeHeader": {
+    "message": "此代码由数据抓取分析助手提供，仅供参考|爬取数据时，请遵守网站爬虫规则与当地法律法规|因使用本插件而违反法律，作者概不负责"
+  },
+  "demoPrepare": {
+    "message": "准备选择"
+  },
+  "demoPredict": {
+    "message": "预测选择"
+  },
+  "demoLegend": {
+    "message": "示例"
+  },
+  "reset": {
+    "message": "重新选择"
+  },
+  "selectInstruction": {
+    "message": "请在页面上选择元素"
+  },
+  "selector": {
+    "message": "选择器"
+  },
+  "selectCount": {
+    "message": "选择数量"
+  },
+  "preview": {
+    "message": "预览"
+  },
+  "sampleCode": {
+    "message": "示例代码"
+  }
+}
