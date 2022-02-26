@@ -65,7 +65,7 @@
     "cash-dom": "^8.1.0",
     "dva": "^2.4.1",
     "lodash": "^4.17.21",
-    "prismjs": "^1.23.0",
+    "prismjs": "^1.27.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-hot-loader": "^4.13.0",
